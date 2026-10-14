@@ -1,0 +1,98 @@
+/* ==========================================================
+   Currículo Digital — estilos complementares ao Tailwind
+   Medidas tiradas do quadro "HOME" (1440px, grid de 12 colunas)
+   ========================================================== */
+
+/* Esconde o template do Vue até ele montar */
+[v-cloak] { display: none; }
+
+/* Logotipo "MM" — 120 x 120 no Figma */
+.logo {
+  width: 80px;
+  height: 80px;
+  font-size: 38px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* Rótulos das seções (EXPERIÊNCIAS, EDUCAÇÃO, CONTATO) */
+.rotulo {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #ADADAD;
+}
+
+/* Texto corrido: IBM Plex Sans 16 / altura de linha 36 no desktop */
+.texto {
+  font-size: 15px;
+  line-height: 30px;
+  color: #3D3D3D;
+}
+
+/* Blocos de experiência / formação */
+.item { margin-top: 32px; }
+.item:first-of-type { margin-top: 24px; }
+
+.item-titulo {
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 30px;
+  color: #111111;
+}
+
+.item-cargo {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 30px;
+  letter-spacing: 0.02em;
+  color: #8A8A8A;
+  margin-top: 4px;
+}
+
+/* ---------- Layout ---------- */
+
+/* Celular / tablet: uma coluna (principal → lateral → rodapé) */
+.curriculo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.col-lateral { margin-top: 48px; padding-bottom: 48px; }
+
+/* Tablet em diante */
+@media (min-width: 768px) {
+  .logo { width: 120px; height: 120px; font-size: 58px; }
+
+  .rotulo { font-size: 13px; }
+
+  .texto,
+  .item-titulo,
+  .item-cargo { font-size: 16px; line-height: 36px; }
+
+  .item-cargo { margin-top: 7px; }
+
+  .item { margin-top: 54px; }
+  .item:first-of-type { margin-top: 28px; }
+}
+
+/* Desktop: duas colunas com a linha vertical no meio (como no Figma) */
+@media (min-width: 1024px) {
+  .curriculo {
+    grid-template-columns: minmax(0, 850px) 1px minmax(280px, 392px);
+    grid-template-rows: auto auto;
+    justify-content: space-between;
+    column-gap: 52px;
+  }
+
+  .col-principal { grid-column: 1; grid-row: 1; padding-bottom: 96px; }
+  .divisor       { grid-column: 2; grid-row: 1 / span 2; }
+  .col-lateral   { grid-column: 3; grid-row: 1 / span 2; margin-top: 0; padding-bottom: 0; }
+  .rodape        { grid-column: 1; grid-row: 2; }
+
+  .item--lateral { margin-top: 46px; }
+  .item--lateral:first-of-type { margin-top: 28px; }
+}
