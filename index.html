@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marty McFly | Currículo Digital</title>
+  <meta name="description" content="Currículo digital de Marty McFly — Projeto 1 do curso Figma Turbo implementado com HTML5, Tailwind CSS e Vue.js." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F2D42E'/%3E%3Ctext x='50%25' y='56%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='700' font-size='30'%3EMM%3C/text%3E%3C/svg%3E" />
+
+  <!-- Fontes do projeto no Figma: IBM Plex Sans + IBM Plex Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS (Play CDN) -->
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
+          },
+          colors: {
+            marca: '#F2D42E',   // amarelo do logotipo
+            tinta: '#111111',   // títulos
+            texto: '#3D3D3D',   // parágrafos
+            cargo: '#8A8A8A',   // cargos / subtítulos
+            rotulo: '#ADADAD',  // rótulos das seções
+            linha: '#E6E6E6',   // linhas divisórias
+          },
+          maxWidth: { quadro: '1440px' },
+        },
+      },
+    };
+  </script>
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="bg-white text-texto font-sans antialiased">
+
+  <div id="app" v-cloak class="max-w-quadro mx-auto px-6 md:px-12">
+
+    <!-- ===== CABEÇALHO ===== -->
+    <header class="pt-10 md:pt-20 flex items-center gap-5 md:gap-8">
+      <div class="logo shrink-0 bg-marca text-tinta font-sans font-bold flex items-center justify-center select-none"
+           aria-hidden="true">
+        {{ iniciais }}
+      </div>
+      <div>
+        <h1 class="font-mono font-semibold text-tinta text-xl md:text-2xl">{{ perfil.nome }}</h1>
+        <p class="font-mono text-[13px] md:text-[15px] text-texto mt-1 md:mt-2">{{ perfil.cargo }}</p>
+      </div>
+    </header>
+
+    <!-- ===== CONTEÚDO EM DUAS COLUNAS ===== -->
+    <main class="curriculo">
+
+      <!-- Coluna principal -->
+      <div class="col-principal pt-10 md:pt-14">
+        <p class="texto">{{ perfil.resumo }}</p>
+
+        <section class="mt-12 md:mt-14" aria-labelledby="titulo-experiencias">
+          <h2 id="titulo-experiencias" class="rotulo">Experiências Profissionais</h2>
+
+          <article v-for="item in experiencias" :key="item.titulo" class="item">
+            <h3 class="item-titulo">{{ item.titulo }}</h3>
+            <p class="item-cargo">{{ item.cargo }}</p>
+            <p class="texto mt-1.5">{{ item.descricao }}</p>
+          </article>
+        </section>
+      </div>
+
+      <!-- Linha vertical (Line 1 no Figma) -->
+      <div class="divisor hidden lg:block bg-linha" aria-hidden="true"></div>
+
+      <!-- Coluna lateral -->
+      <aside class="col-lateral pt-12 lg:pt-14 border-t border-linha lg:border-t-0">
+        <section aria-labelledby="titulo-educacao">
+          <h2 id="titulo-educacao" class="rotulo">Educação</h2>
+
+          <article v-for="item in educacao" :key="item.titulo" class="item item--lateral">
+            <h3 class="item-titulo">{{ item.titulo }}</h3>
+            <p class="item-cargo">{{ item.tipo }}</p>
+            <p class="texto mt-1.5">{{ item.descricao }}</p>
+          </article>
+        </section>
+
+        <section class="mt-12 pt-10 border-t border-linha" aria-labelledby="titulo-contato">
+          <h2 id="titulo-contato" class="rotulo">Contato</h2>
+
+          <ul class="mt-5 text-sm leading-9">
+            <li v-for="contato in contatos" :key="contato.rotulo">
+              <strong class="font-bold text-tinta uppercase mr-1">{{ contato.rotulo }}:</strong>
+              <a v-if="contato.link" :href="contato.link"
+                 class="hover:text-tinta hover:underline underline-offset-4 transition-colors">{{ contato.valor }}</a>
+              <span v-else>{{ contato.valor }}</span>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <!-- Rodapé (fica na coluna principal no desktop) -->
+      <footer class="rodape border-t border-linha py-8 md:py-10">
+        <p class="font-mono font-bold text-[13px] md:text-sm tracking-[0.15em] uppercase text-rotulo">
+          Copyright {{ ano }} – Todos os direitos reservados
+        </p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Vue.js 3 -->
+  <script src="https://unpkg.com/vue@3.4.38/dist/vue.global.prod.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
